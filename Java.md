@@ -73,11 +73,25 @@ public class 클래스명(Sample) {
 ### StringBuffer (mutable)
 - StringBuffer a = new StringBuffer();로 객체 생성
 - append, insert, substring 메서드 사용해서 수정
-    - a.append(”test”);로 문자열 추가
-        - String 변수에서도 + 연산으로 문자열 추가 가능하지만, 다른점은 String은 연산이 될 때마다 객체를 새로 만들고, StringBuffer는 처음 생성 객체만 사용한다는 점이다. 또한 StringBuffer가 무거운 편이므로 메모리 사용량도 많다.
+  - a.append(”test”);로 문자열 추가
+      - String 변수에서도 + 연산으로 문자열 추가 가능하지만, 다른점은 String은 연산이 될 때마다 객체를 새로 만들고, StringBuffer는 처음 생성 객체만 사용한다는 점이다. 또한 StringBuffer가 무거운 편이므로 메모리 사용량도 많다.
+  - a.insert(n, b);로 n번째에 문자열 b 추가
 - String b = a.toString();으로 문자열 자료형으로 변경
 
 ### StringBuilder
 StringBuffer와 비슷한 자료형이며 사용법도 같다.  
 StringBuffer보다 성능이 우수하다.  
 동기화를 고려할 필요가 없다면 StringBulider를 사용하는 것이 유리하다.
+
+### substring
+String 자료형의 substring 메서드와 동일하게 작동한다.
+a.substring(x, y);로 사용하고 문자열 x ≤ a < y를 뽑아낸다.
+
+### 배열
+
+int[ ] a = {1, 2};  
+String[ ] a = new String[7];  
+a[0] = “apple”;  
+a[1] = “banana”;  
+길이를 구할 때는 a.length로 구한다.  
+설정된 배열값을 넘어서면 나타나는 오류는 ArrayIndexOutOfBoundsException이다.
