@@ -88,7 +88,6 @@ String 자료형의 substring 메서드와 동일하게 작동한다.
 a.substring(x, y);로 사용하고 문자열 x ≤ a < y를 뽑아낸다.
 
 ### 배열
-
 int[ ] a = {1, 2};  
 String[ ] a = new String[7];  
 a[0] = “apple”;  
