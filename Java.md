@@ -94,3 +94,101 @@ a[0] = “apple”;
 a[1] = “banana”;  
 길이를 구할 때는 a.length로 구한다.  
 설정된 배열값을 넘어서면 나타나는 오류는 ArrayIndexOutOfBoundsException이다.
+
+### 리스트
+- 리스트 자료형 : ArrayList, Vector, LinkedList 등이 있다.
+- ArrayList a = new ArrayList();
+  - a.add(b); a.add(n, b); → (맨 뒤 또는 n번째 위치에) b 추가
+  - a.get(n); → n번째 요소 리턴
+  - a.size(); → 갯수 리턴
+  - a.contains(b) → b가 있는지 확인 후 boolean 리턴
+  - a.remove(b); a.remove(n); → (객체 b 또는 n번째 요소를) 삭제 → 이후 객체는 boolean을, 인덱스는 요소값을 리턴
+- 제네릭스 도입
+  - 이유 : 자료형을 강제로 바꿀 때 생기는 캐스팅 오류 감소
+  - ArrayList<String> a = new ArrayList<>();
+  - 제네릭스를 사용하지 않을시 모든 객체는 Object 자료형으로 인식되는데, 모든 객체가 상속중인 기본적인 자료형이므로, 특정 자료형의 변수에 값을 옮겨 넣을 때는 해당 자료형으로 캐스팅을 해줘야 함.  
+    String b = (String) a.get(0);
+- ArrayList 객체에 add를 사용하지 않고 바로 요소 추가하는 방법   
+  ArrayList<int> a = new ArrayList<>(Arrays.asList(1,2,3));  
+  (Arrays.asList()안에 배열 변수를 넣어도 됨)  
+
+### String.join 메서드
+리스트 또는 문자열 배열의 각 요소에 구분자를 넣을 수 있다.
+- 리스트
+  ArrayList<Integer> a = new ArrayList<>(Arrays.asList(1,2,3));  
+  String.join(”-”, a); → 1-2-3  
+- 문자열 배열
+  String[ ] a = new String[ ]{”1”, “2”, “3”};  
+  String.join(”,”, a); → 1,2,3  
+
+### 리스트 정렬
+ArrayList객체.sort(Comparator.naturalOrder()); → 오름차순 정렬됨  
+ArrayList객체.sort(Comparator.reverseOrder()); → 내림차순 정렬됨
+
+### Map (Hash) 자료형
+- 맵 자료형에는 HashMap, LinkedHashMap, TreeMap 등이 있다.
+- key와 value가 쌍을 이뤄 구성되었다. 순서에 의존하지 않는다.
+- HashMap<String, Integer> a = new HashMap<>();
+  - a.put(”apple”, 3);
+  - a.get(”apple”); → 3 리턴  
+    a.get(”banana”); → (없는 값이라) null 리턴  
+    a.getOrDefault(”banana”, 0); → (없지만 설정해둔 기본값) 0 리턴  
+  - a.containsKey(”cookie”); → boolean 리턴
+  - a.remove(”apple”); → 해당 key를 삭제하고 value 리턴
+  - a.size(); → 맵 요소 개수 리턴
+  - a.keySet(); → 맵의 모든 key를 모아서 [ ]로 리턴
+- 입력된 순서대로 데이터를 저장하고 싶을 때 : LinkedHashMap 사용
+- 입력된 key의 오름차순으로 데이터를 저장하고 싶을 때 : TreeMap 사용
+
+### Set 자료형
+- 집합 자료형에는 HashSet, LinkedHashSet, TreeSet 등이 있다.
+- 중복을 허용하지 않는다. 순서가 없다.
+- HashSet<Integer> a = new HashSet<>(Arrays.asList(1,2,3));  
+  HashSet<Integer> b = new HashSet<>(Arrays.asList(3,4,5));
+  - 교집합 (원본 데이터 유지하며)  
+    HashSet<Integer> A = new HashSet<>(a);  
+    A.retainAll(b);
+  - 데이터 1개씩 추가  
+    a.add(100);
+  - 합집합 (원본 데이터 유지하며) (한 번에 값 추가에도 사용)  
+    HashSet<Integer> A = new HashSet<>(a);  
+    A.addAll(b);
+  - 차집합  (원본 데이터 유지하며) (특정 값 제거에도 사용)  
+    HashSet<Integer> A = new HashSet<>(a);  
+    A.removeAll(b);
+- 입력된 순서대로 데이터를 저장하고 싶을 때 : LinkedHashSet 사용
+- 입력된 key의 오름차순으로 데이터를 저장하고 싶을 때 : TreeSet 사용
+
+### enum (상수 집합)
+- 내부적으로 0부터 시작하는 정수값을 가진다.
+```java
+enum Sample {
+  AMERICANO,
+  ICE_AMERICANO,
+  CAFE_LATTE
+};
+```
+- Sample.AMERICANO → AMERICANO  리턴  
+  Sample.AMERICANO.name() → AMERICANO  리턴
+- for 문에서 enum 사용하기  
+  for(Sample a: Sample.values()) {System.out.println(a);}
+
+### 형변환
+- 숫자로
+  - Integer.parseInt(st);
+  - Double.parseDouble(st);
+  - Float.parseFloat(st);
+- 문자열로
+  - Integer.toString(n);
+  - String.valueOf(n);
+- double → int로 (반대는 캐스팅 필요 없음)
+  - double d = 3.45;  
+    int i = (int) d; → 3 리턴
+- 실수인 문자열을 정수로 바꿀때 나타나는 오류는 NumberFormatException이다.
+
+### final  
+값을 한번 설정하면 재할당 할 수 없다.  
+리스트가 final인 경우 add나 remove는 가능하다. 이 마저 금지하고 싶다면 리스트를 만들 때 List.of를 사용해서 만들면 된다.   
+final List<Integer> a = List.of(1, 2);  
+a.add(3); → UnsupportedOperationException 오류 발생
+
