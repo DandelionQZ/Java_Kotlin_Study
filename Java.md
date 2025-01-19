@@ -3,24 +3,27 @@
 // 클래스 블록
 public class 클래스명(Sample) {
 
-    // 메서드 블록
-    [default|public|private|protected] [static] (리턴자료형|void) 메서드명1 (입력자료형 매개변수, ...) {
-        명령문(statement);	
-    }
-	
-    // 속성
-    private String message;
-    
-    // 생성자
-    public Sample(String message) {
-        this.message = message
-    }
-    
-    public static void main(String[] args) {
-        System.out.println("printing");
-    }
+  // 메서드 블록
+  // public → protected → default → private 순으로 접근 범위가 좁아진다.
+  [public|protected|default|private] [static] (리턴자료형|void) 메서드명1 (입력자료형 매개변수, ...) {
+    명령문(statement);
+  }
+  
+  // 속성
+  private String message;
+  
+  // 생성자
+  Sample(String message) {
+      this.message = message;
+  }
+  
+  public static void main(String[] args) {
+      System.out.println("printing");
+  }
 }
 ```
+클래스의 기본 접근제어자는 default(package-private)이다.  
+클래스 내부 멤버(변수, 메서드)의 기본 접근제어자도 default(package-private)이다.
 
 ### 이름 규칙
 - ChocoCookie → 파스칼 케이스 → 클래스 이름
@@ -43,10 +46,10 @@ public class 클래스명(Sample) {
 - 숫자/문자열 대입 (문자열 포맷 코드 이용)
     ```java
     System.out.println(String.format("print things %d", 3));
-    => print things 3
+    // => print things 3
     
     System.out.println(String.format("print things %s", "three"));
-    => print things three
+    // => print things three
     ```
 - 변수 대입 (1 또는 2개 이상)
     ```java
@@ -54,21 +57,19 @@ public class 클래스명(Sample) {
     String str = "test";
     
     System.out.println(String.format("Me %d and do %s", num, str));
-    => Me 3 and do test
+   // => Me 3 and do test
     ```
 - 문자열 포맷 코드   
 
-| 코드 | 설명 | 특징 |  
-| --- | --- | --- |  
-| %s | String | 자동으로 전달되는 파라미터 값을 문자열로 바꾸어 사용. 따라서 3이나 3.14는 %d, %f를 사용해야하지만 %s를 사용해 문자열로 전달 가능.  
-%10s나 %-10s처럼 전체길이를 지정해서 남은 공간은 공백으로 처리 가능. |  
-| %c | Character |  |  
-| %d | Integer |  |  
-| %f | Floating-Point | %.4f처럼하면 원하는 소숫점 자리까지만 출력 가능하게 할 수 있음.  
-%10.4f의 의미는 총 10자리수인데 오른쪽 정렬하고 소숫점 4자리까지만 출력하고 나머지는 공백으로 처리.  |  
-| %o | 8진수 |  |  
-| %x | 16진수 |  |  
-| %% | Literal % | 문자열 포맷 코드가 없다면 그냥 %만 단독으로 사용 가능.  |  
+  | 코드 | 설명 | 특징                                                                                                                           |  
+  | --- | --- |------------------------------------------------------------------------------------------------------------------------------|  
+  | %s | String | 자동으로 전달되는 파라미터 값을 문자열로 바꾸어 사용. 따라서 3이나 3.14는 %d, %f를 사용해야하지만 %s를 사용해 문자열로 전달 가능. <br/>%10s나 %-10s처럼 전체길이를 지정해서 남은 공간은 공백으로 처리 가능. |  
+  | %c | Character |                                                                                                                              |  
+  | %d | Integer |                                                                                                                              |  
+  | %f | Floating-Point | %.4f처럼하면 원하는 소숫점 자리까지만 출력 가능하게 할 수 있음. <br/>%10.4f의 의미는 총 10자리수인데 오른쪽 정렬하고 소숫점 4자리까지만 출력하고 나머지는 공백으로 처리.                          |  
+  | %o | 8진수 |                                                                                                                              |  
+  | %x | 16진수 |                                                                                                                              |  
+  | %% | Literal % | 문자열 포맷 코드가 없다면 그냥 %만 단독으로 사용 가능.                                                                                             |  
 
 ### StringBuffer (mutable)
 - StringBuffer a = new StringBuffer();로 객체 생성
@@ -161,13 +162,13 @@ ArrayList객체.sort(Comparator.reverseOrder()); → 내림차순 정렬됨
 
 ### enum (상수 집합)
 - 내부적으로 0부터 시작하는 정수값을 가진다.
-```java
-enum Sample {
-  AMERICANO,
-  ICE_AMERICANO,
-  CAFE_LATTE
-};
-```
+  ```java
+  enum Sample {
+    AMERICANO,
+    ICE_AMERICANO,
+    CAFE_LATTE
+  };
+  ```
 - Sample.AMERICANO → AMERICANO  리턴  
   Sample.AMERICANO.name() → AMERICANO  리턴
 - for 문에서 enum 사용하기  
@@ -210,3 +211,112 @@ printf → System.out.println(System.format())와 동일 (문자열 포매팅)
 ### for each 문
 for ([자료형] [변수명]: [객체명]) { 여기서 변수명 사용 }
 
+### 객체지향 메서드
+void인 메서드에서는 출력 값 없이 return을 단독으로 사용해서 메서드를 즉시 빠져나갈 수 있다.
+
+### 상속
+extends로 상속 받는다.  
+A가 B의 상위개념 이라서, ‘B는 A이다’라고 말할 수 있는 관계를 IS-A(상속)관계라고 한다.  
+B 클래스의 객체를 A 클래스 자료형으로 사용한다면, B 클래스에 구현된 변수와 메서드는 사용하지 못한다.  
+A클래스의 객체를 B 클래스 자료형으로 선언하면 컴파일 오류가 난다.
+- 메서드 오버라이딩
+  - 메서드의 이름, 매개변수, 리턴 타입이 모두 동일해야 한다.
+  - 접근 제어자(public, protected 등)는 상위 클래스의 메서드보다 더 좁은 범위로 변경할 수 없다.
+    - public → protected → default → private 순으로 접근 범위가 좁아진다.
+    - 예: 상위 클래스가 protected면 하위 클래스는 protected나 public만 가능
+  - 예외(Exception)는 상위 클래스의 메서드보다 더 큰 범위의 예외를 던질 수 없다.
+  - @Override 어노테이션을 사용하면 오버라이딩이 제대로 되었는지 컴파일러가 체크해준다.
+- 메서드 오버로딩
+  - 같은 클래스 내에서 동일한 이름의 메서드를 여러 개 정의하는 것이다.
+  - 메서드 오버로딩 규칙
+    - 메서드 이름이 같아야 한다.
+    - 매개변수의 개수나 타입이 달라야 한다.
+    - 매개변수는 같고 리턴 타입만 다른 경우는 오버로딩이 성립하지 않는다.
+    - 접근 제어자는 영향을 주지 않는다.
+- 자바는 다중상속을 지원하지 않는다.
+
+### 생성자
+클래스명과 메서드명이 같고, 리턴 타입을 정의하지 않는다(void도 안됨).  
+생성자를 구현하고서 디폴트 생성자도 사용하고 싶다면 직접 작성해줘야한다.  
+생성자 오버로딩이 가능하다.
+
+### 인터페이스
+```java
+// 선언
+interface Fruit {
+  String getColor(); // implements한 클래스들이 강제로 구현하도록 함
+  (pulblic) defualt void printColor() { // 디폴트 자료형으로 구현체 가짐 
+    System.out.printf("my color is %s\n", getFood());
+  }
+}
+
+// 사용
+class Apple extends Food implements Fruit {
+  public String getColor() {
+    return "red";
+  }
+}
+class Banana extends Food implements Fruit {
+  public String getColor() {
+    return "yellow";
+  }
+}
+
+// 샘플
+void eat(Apple a) { } // YES (but BAD)
+void eat(Fruit f) { } // YES
+```
+다른 클래스에서 Apple이나 Banana 클래스의 객체를 넘겨받을 때, 각각의 클래스 자료형이 아니라 implements 받은 Fruit 인터페이스 자료형으로 묶어서 받을 수 있다.  
+인터페이스에서는 구현체가 없는 메서드를 선언하므로써 implements한 클래스에서 강제로 구현하도록 할 수 있다.  
+디폴트 메서드를 사용하면 구현체를 가진 메서드를 인터페이스에서 선언할 수 있으며, 오버 라이딩이 가능하다.  
+콤마(,)를 이용하여 인터페이스를 여러개 implements할 수 있다. (하나의 객체가 여러 개의 자료형 타입을 가질 수 있고, 이것을 다형성이라고 한다.)  
+장점은 복잡한 분기문을 간단하게 처리할 수 있다.  
+만약 서로 다른 인터페이스의 메서드를 사용하고 싶다면,  
+  - 두 인터페이스를 구현한 특정 클래스의 객체를 그대로 사용하거나
+  - 두 인터페이스를 extends한 새로운 interface를 만들어서 사용한다.
+ 
+interface는 일반 클래스와 달리 extends를 이용하여 다중 상속을 받을 수 있다.
+
+### 추상 클래스
+인터페이스의 역할도 하면서 클래스의 기능도 가지고 있다.
+```java
+abstract class Apple extends Food {
+  abstract String getColor();
+  void printColor() {
+    // 구현체    
+  }
+}
+```
+
+### interface vs abstract class
+- 클래스를 정의할 때
+  - 인터페이스 → interface [클래스 이름]
+  - 추상 클래스 → abstract class [클래스 이름]
+- interface
+  - 객체변수x
+  - 본인: extends로 다른 인터페이스 가능 (다중상속o)  
+    다른 클래스: implements로 다형성 가능
+    ```java
+    // 추상 메서드 (구현체x)
+    (public abstract) [자료형] [메서드명];
+    
+    // 구현체o
+    (public) default [자료형] [메서드명]; -- 재정의 가능
+    (public) static [자료형] [메서드명]; -- 재정의 불가능 
+    private [자료형] [메서드명]; -- default, static에서 사용 가능. 외부접근, 재정의 x. 
+    ```
+- abstract class
+  - 객체변수o, 생성자o
+  - 단독으로 객체 생성x, 반드시 상속 통해서. 
+  - 본인: extends로 다른 클래스 상속 가능 (다중상속x)  
+    다른 클래스: extends로 상속 가능  
+    class Sample extends SamAbsCla { }
+    ```java
+    // 추상 메서드 (구현체x)
+    (default)[public|protected] abstract [자료형] [메서드명]; -- private 불가능
+    
+    // 구현체o
+    (default)[public|protected|private] [자료형] [메서드명]; -- 모두 가능
+    ```
+    
+  
