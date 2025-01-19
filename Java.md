@@ -192,3 +192,21 @@ enum Sample {
 final List<Integer> a = List.of(1, 2);  
 a.add(3); → UnsupportedOperationException 오류 발생
 
+### if 문
+elif 아니고 else if 이다.
+
+### while 문
+Ctrl-C를 눌러서 무한 루프를 빠져나올 수 있다.  
+break와 continue가 있다.
+
+### for 문
+continue가 있다.
+
+### print vs println vs printf
+print → 줄바꿈 없이 출력  
+println → 자동 줄바꿈해서 출력  
+printf → System.out.println(System.format())와 동일 (문자열 포매팅)
+
+### for each 문
+for ([자료형] [변수명]: [객체명]) { 여기서 변수명 사용 }
+
