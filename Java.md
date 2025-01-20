@@ -320,7 +320,6 @@ abstract class Apple extends Food {
     ```
 
 ### 콘솔 입력
-
 ```java
 InputStream a = System.in;
 InputStreamReader b = new InputStreamReader(a);
@@ -329,23 +328,62 @@ BufferReader c = new BufferReader(b);
 String z = c.readLine();
 System.out.println(z);
 ```
-
-- InputStream : byte를 읽는다
-
+- InputStream : byte를 읽는다  
   → byte[ ] x = new byte[3]; a.read(x); System.out.println(x[0]); [abc → a]
-
-- InputStreamReader : character를 읽는다
-
+- InputStreamReader : character를 읽는다   
   → char [ ] y = new char[3]; b.read(y); System.out.println(y); [abc → abc]
-
 - Scanner (b, c, z 과정을 합체)
-
     ```java
     Scanner sc = new Scanner(System.in);
     System.out.println(sc.next());
     ```
-
   - next: 토큰을 읽어들인다.
   - nextLine: 라인을 읽어들인다.
   - nextInt: 정수를 읽어들인다.
 
+### 파일 쓰기
+- FileOutputStream  
+  만약 파일 생성 경로가 c:/로 시작되지 않는다면 java.exe을 실행하는 폴더 내에 생성된다.  
+  (윈도우) \r\n로 줄바꿈.  
+  getByte() 사용 필요.  
+    ```java
+    FileOutputStream a = new FileOutputStream("파일 생성 경로");
+    a.write(String변수.getByte());
+    a.close();
+    ```
+- FileWriter  
+  (윈도우) \r\n로 줄바꿈.  
+  getByte() 필요 없음.  
+    ```java
+    FileWriter a = new FileWriter("파일 생성 경로");
+    a.write(String변수);
+    a.close();
+    
+    // 내용 추가 (write 동일)
+    FileWriter a2 = new FileWriter("원본 파일 경로", true);
+    ```
+- PrintWriter  
+  (윈도우) \r\n 필요 없음. println로 자동 줄바꿈. (이유: System.out 대신 PrintWriter 객체 이용)  
+  getByte() 필요 없음.  
+    ```java
+    PrintWriter a = new PrintWriter("파일 생성 경로");
+    a.println(String변수);
+    a.close();
+    
+    // 내용 추가 (println 동일)
+    PrintWriter a2 = new PrintWriter(new FileWriter("원본 파일 경로", true));
+    ```
+
+### 파일 읽기
+- FileInputStream 클래스가 있는데, 이건 byte로 읽어와서 그 배열을 new String을 통해 문자열로 바꾸는 번거로움이 있다. (PASS)
+- FileReader와 BufferedReader 조합  
+    ```java
+    BufferedReader a = new BufferedReader(new FileReader("원본 파일 경로"));
+    while(true) {
+    	String line = a.readLine();
+    	if (line == null) break;
+    	System.out.println(line);
+    }
+    a.close();
+    ```
+  
