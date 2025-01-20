@@ -318,5 +318,34 @@ abstract class Apple extends Food {
     // 구현체o
     (default)[public|protected|private] [자료형] [메서드명]; -- 모두 가능
     ```
-    
-  
+
+### 콘솔 입력
+
+```java
+InputStream a = System.in;
+InputStreamReader b = new InputStreamReader(a);
+BufferReader c = new BufferReader(b);
+
+String z = c.readLine();
+System.out.println(z);
+```
+
+- InputStream : byte를 읽는다
+
+  → byte[ ] x = new byte[3]; a.read(x); System.out.println(x[0]); [abc → a]
+
+- InputStreamReader : character를 읽는다
+
+  → char [ ] y = new char[3]; b.read(y); System.out.println(y); [abc → abc]
+
+- Scanner (b, c, z 과정을 합체)
+
+    ```java
+    Scanner sc = new Scanner(System.in);
+    System.out.println(sc.next());
+    ```
+
+  - next: 토큰을 읽어들인다.
+  - nextLine: 라인을 읽어들인다.
+  - nextInt: 정수를 읽어들인다.
+
