@@ -386,4 +386,139 @@ System.out.println(z);
     }
     a.close();
     ```
-  
+
+### 패키지
+- 패키지 파일을 생성하고, 거기서 자바 클래스 생성.
+- 상단에 package 패키지명 <<을 추가한다.
+- 서브 패키지는 상위패지키명.하위패키지명 <<으로 만든다.
+
+### 스태틱
+- 변경이 안되게 하고 싶은 스태틱 → final static [자료형] 변수명
+- 스태틱 메서드는 크래스를 통해 호출한다.
+- 내부에서 스태틱 변수가 아닌 변수는 사용 불가능하다.
+- 싱글톤 패턴은 단 하나의 객체만을 생성하게 하는 것이다. 생성자를 private 접근제어자로 설정하여 다른 클래스에서 new를 이용하여 객체를 생성할 수 없게 하는 것이다.
+    ```java
+    class Sample {
+    	private static Sample a;
+    	private static Sample() { };
+    	
+    	// 외부 클래스에서 이 메서드를 호출해서 private static 생성자에 접근한다. 
+    	public static Sample getInstance() {
+    		if(a == null) {
+    			a = new Sample();
+    		}
+    		return a;
+    	}
+    }
+    ```
+
+### 예외 처리
+- FileNotFoundExceptoin → 존재하지 않는 파일 접근시 발생
+- ArithmeticException → 0으로 나눗셈할 때 발생
+- ArrayIndexOutOfBoundsException → 배열 크기를 벗어났을 때 발생
+```java
+int c;
+try {
+    c = 4 / 0;
+    System.out.println("BAD");  // 예외 발생시 수행되지 않는다.
+} catch (ArithmeticException e) {
+    c = -1;
+} finally {
+    System.out.println("OK");  // 예외에 상관없이 무조건 수행된다.
+}
+```
+- 메서드 내에서 예외 발생 (throw 사용)
+  - RuntimeException → 실행 시 발생하는 예외 (발생할 수도 않을 수도 있는 경우에 사용)  
+    클래스에서 extends로 상속받아 커스텀 예외를 만들 수 있다.  
+    특징 : 바로 throw new A(); 호출 가능  
+      ```java
+      class A extends RuntimeException { }
+      
+      class Sample {
+          if(조건) {
+              throw new A(); 
+          }
+      }
+      ```
+  - Exception → 컴파일 시 발생하는 예외 (예측이 가능한 경우에 사용)  
+    클래스에서 extends로 상속받아 커스텀 예외를 만들 수 있다.  
+    특징 : try-catch문에서 throw new A(); 호출 가능  
+      ```java
+      class A extends Exception { }
+      
+      class Sample {
+          try {
+              if(조건) {
+                  throw new A();
+              }
+          } catch(A e) {
+              // 실행문
+          }
+      }
+      ```
+- 메서드 외에서 예외 발생 (throws 사용)  
+  해당 메서드가 처리하지 않은 예외를 호출자(주로 main)에게 전달한다.  
+    ```java
+    class A extends Exception {
+    }
+    
+    public class Sample {
+        public void 메서드(파라미터) throws A { // 여기서 throws로 예외 호출하면 
+            if(조건) {
+                throw new A();
+            }
+        }
+    
+        public static void main(String[] args) { // Sample 객체를 호출한 여기서 예외 처리하게 된다. 
+            Sample sample = new Sample();
+            try {
+                sample.메서드(인수);
+                sample.메서드(인수);
+            } catch (A e) {
+                System.err.println("A이 발생했습니다.");
+            }
+        }
+    }
+    
+    ```
+- 트랜잭션  
+  트랜잭션은 하나의 작업단위로써 롤백을 통해 데이터들의 값이 서로 일관성 있게 일치하도록 한다.
+
+### 스레드
+- Thread라는 클래스 자체가 있고 extends로 상속받아서 사용한다.
+- Thread 상속시 반드시 run 메서드를 구현해야한다.
+- run 메서드는 객체의 start 메서드로 실행한다.  
+  `Thread t = new Sample(인수);`
+- 스레드는 순서대로 실행되지 않으며, main 메서드가 종료되어도 본인 할일을 하다가 종료된다.
+- 특정 스레드가 종료될 때까지 기다리고 싶으면 객체의 join 메서드를 사용한다.
+- Thread를 상속받게 되면 다른 클래스를 상속받지 못 하니까 이때 Thread 상속 대신 Runnable 인터페이스를 implements 받는 방법이 있다.
+- Runnable 인터페이스는 동일하게 run 메서드를 구현하도록 강제한다.
+- Runnable 인터페이스 사용시 객체 생성은 다음과 같다.  
+  `Thread t = new Thread(new Sample(인수));`
+
+### 함수형 프로그래밍
+- 람다와 스트림을 사용하는 이유는 코드의 양이 줄어들고 읽기 쉬운 코드를 만들 수 있기 때문이다.
+- 람다
+  - 익명함수이다. 따라서 인터페이스의 메서드를 구현할 때 굳이 implements 하는 클래스 없이, 해당 인터페이스의 메서드를 람다로 구현해서 사용할 수 있다. 람다로 인터페이스 메서드를 구현하는 경우, 반드시 메서드는 하나만 있어야 가능하며, 이를 인터페이스에 @FunctionalInterface 어노테이션을 사용하여 명시해준다. (함수형 인터페이스임을 표시하며 하나의 메서드만 가질 수 있게 한다.)
+      ```java
+      @FunctionalInterface
+      interface A {int sum(int x, int y)}
+      
+      // main 메서드
+      A sample = (int x, int y) -> x+y; // 람다로 메서드 구현
+      sample.sum(1,2);
+      
+      // 람다 축약
+      // 1
+      A sample = (x, y) => x+y; // 자료형이 이미 인터페이스의 파라미터로 입력되어있으니 생략 가능
+      // 2
+      A sample = Integer::sum; // Integer의 sum 함수와 구현 내용이 같으므로 이렇게 작성 가능
+      // 이때 (클래스명)::(메서드명) 이렇게 구분한다. 
+      ```
+- 스트림  
+  같은 데이터를 갖고 여러 작업을 진행후 결과를 내야할 때 스트림을 이용하면 간결하게 작업을 진행할 수 있다.  
+  .stream으로 스트림 생성시 원시타입으로 생성되니 warraped로 생성하고 싶드면 이후에 .boxed()로 해줘야한다.  
+  스트림을 생성하고 boxed, filter, distinct, sorted, mapToInt 등 스트림 가공 메서드를 사용할 수 있다.  
+
+### 기타
+- A를 extends한 B의 객체인지 확인하기 → i instanceof B
