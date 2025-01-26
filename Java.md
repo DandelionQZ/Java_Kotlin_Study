@@ -337,9 +337,10 @@ System.out.println(z);
     Scanner sc = new Scanner(System.in);
     System.out.println(sc.next());
     ```
-  - next: 토큰을 읽어들인다.
-  - nextLine: 라인을 읽어들인다.
-  - nextInt: 정수를 읽어들인다.
+  - next: 입력된 값을 공백을 기준으로 string타입으로 리턴
+  - nextLine: 입력된 값 한줄을 string타입으로 리턴
+  - nextInt: 입력된 값을 integer타입으로 리턴
+  - 외에도 nextBigDecimal, nextBigInteger, nextByte 등이 있다. 
 
 ### 파일 쓰기
 - FileOutputStream  
