@@ -7,16 +7,17 @@ public class p5698{
     StringTokenizer st;
     String str;
     char prev;
-    boolean r = true;
+    boolean r;
 
     while (sc.hasNextLine()) {
       str = sc.nextLine();
       if (str.equals("*") || str.equals("\n")) break;
+      r = true;
 
       str = str.toUpperCase();
       st = new StringTokenizer(str);
 
-      if (!st.hasMoreTokens()) break;
+      if (str.trim().isEmpty()) continue;
       prev = st.nextToken().charAt(0);
 
       while (st.hasMoreTokens()) {
@@ -30,7 +31,6 @@ public class p5698{
         System.out.println("Y");
       } else {
         System.out.println("N");
-        break;
       }
     }
   }

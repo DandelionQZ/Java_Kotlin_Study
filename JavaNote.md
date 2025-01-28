@@ -12,3 +12,6 @@ int A = a - '0'; // 1
 ```java
 char a = (char) 97;
 ```
+
+# String 빈줄 무시
+str.trim().isEmpty()
